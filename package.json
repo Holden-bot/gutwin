@@ -1,0 +1,11 @@
+{
+  "name": "gutwin",
+  "version": "0.0.1",
+  "description": "Runs arbitrary code in Docker containers",
+  "main": "engine.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Harris Ferguson",
+  "license": "ISC"
+}
