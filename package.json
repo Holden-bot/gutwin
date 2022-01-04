@@ -9,6 +9,8 @@
   "author": "Harris Ferguson",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^8.6.0",
+    "eslint-config-google": "^0.14.0",
     "jest": "^27.4.5"
   },
   "dependencies": {
