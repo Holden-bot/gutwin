@@ -1,23 +1,33 @@
-import Dockerode from "dockerode";
-import Docker from "dockerode";
-
-const OPTIONS = {
-  build : {
-    context: __dirname, 
-    src: ['Dokcerfile']
-  }
-}
-
-// setup the image we will build containers from
-let docker = new Docker();
-let stream = await docker.buildImage(OPTIONS.build, {t: "holden/container"});
-await new Promise((resolve, reject) => {
-  docker.modem.followProgress(stream, (err, res) => err ? reject(err) : resolve(res));
-});
 
 class Container {
-  constructor(){
-    this.container = docker.createContainer();
+  constructor(container){
+    this.container = container;
+    this.ip = this.getIp(this.container);
+  }
+
+  async execute(code, callback){
+    const request_options = {
+      url: `http://${this.ip}:3000`, 
+      fetch_opts : {
+        method: 'POST',
+        body: {
+          code: code
+        } 
+      }
+    }
+    let result = await fetch(request_options.url, request_options.fetch_opts);
+    callback(null, result.body)
+  }
+
+  getIp(container){
+    this.container.inspect( (err, data) => {
+      if(err){
+        console.log("unable to retrieve container ip");
+        return;
+      }
+      container.ip = data.NetworkSettings.IPAddress;
+    }
+    );
   }
 }
 

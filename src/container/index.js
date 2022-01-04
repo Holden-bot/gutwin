@@ -5,9 +5,13 @@ var app = express();
 const PORT = 3000;
 
 app.use(bodyParser.json());
-app.post('/', (req, res) => {
-  res.setHeader('Content-Type', 'application-json');
-  // execute the passed in code
+
+app.post('/python', (req, res) => {
+  
+});
+
+app.post('/javascript', (req, res) => {
+
 });
 
 app.listen(PORT, () => {
